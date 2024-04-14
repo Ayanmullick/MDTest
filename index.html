@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Test</title>
+        <!-- This should import and display the contents of VMs.md file-->
+
+
+    </head><body>
+        <h1>Test</h1>
+        <div id="content"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
+        <!--Error: Uncaught (in promise) TypeError: marked is not a function-->
+
+        <script>
+            fetch("https://raw.githubusercontent.com/Ayanmullick/AzIaaS/main/3TierApp/VMs.md")
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('content').innerHTML = marked.parse(text)
+            })
+        </script>
+
+    </body>
+
+
+
+</html>
+
