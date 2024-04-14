@@ -9,7 +9,7 @@ function renderMarkdownTable(markdown) {
         htmlTable += `<tr style="border: 1px solid black;">${rowHtml}</tr>`;
     }
 
-    htmlTable += '</table>';   // Close the table
+    htmlTable += '</table>';                                                                // Close the table
     return htmlTable;
 }
 
