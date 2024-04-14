@@ -1,55 +1,33 @@
+//It isn't rendering as well as it should. Please improve the below function to render markdown tables to HTML tables
+//The function should be able to convert markdown tables to HTML tables
+//Markdown tables are represented as follows:
+//| Name | Tier            | AVSet    | Subnet   | DriveE | DriveF | DriveG |
+//|------|-----------------|----------|----------|--------|--------|--------|
+//| Web1 | Standard_E2S_V5 | WebTier  | WebTier  | 512    | 20     | 1024   |
+//| Web2 | Standard_E2S_V5 | WebTier  | WebTier  | 512    | 20     | 1024   |
+//| App1 | Standard_E2S_V5 | AppTier  | AppTier  | 1024   | 1024   |        |
+
 function renderMarkdownTable(markdown) {
-    // Step 1: Normalize line endings
-    markdown = markdown.replace(/\r\n?/g, '\n');
+    // Split the Markdown table into rows
+    const rows = markdown.trim().split('\n');
 
-    // Step 2: Split input into lines
-    let lines = markdown.split('\n');
+    // Create the HTML table structure
+    let htmlTable = '<table style="border-collapse: collapse; border: 1px solid black;">';
 
-    // Step 3: Prepare to detect alignment from header separator
-    let alignMap = {
-        ':-': 'left',
-        '-:': 'right',
-        ':-:': 'center',
-        '---': 'left' // default alignment if no other alignment characters are specified
-    };
-
-    // Step 4: Initialize the HTML table
-    let html = '<table style="border: 1px solid black; border-collapse: collapse;">';
-
-    // Step 5: Process each line
-    lines.forEach((line, index) => {
-        if (line.match(/^\|.*\|$/)) { // Only process lines that start and end with |
-            // Remove leading and trailing pipe characters
-            line = line.slice(1, -1);
-
-            // Split the line into individual cells
-            let cells = line.split('|').map(cell => cell.trim());
-
-            // Check for header or separator line
-            if (index === 1) {
-                // This is the separator line, determine alignment
-                return; // Skip the header separator
-            }
-
-            // Generate HTML for the current row
-            let tag = index === 0 ? 'th' : 'td'; // Use <th> for header and <td> for other rows
-            let rowHtml = cells.map((cell, i) => {
-                let align = 'left'; // Default alignment
-                if (index === 0) {
-                    // Determine alignment from header separator line
-                    let match = lines[1].slice(1, -1).split('|')[i].trim();
-                    align = alignMap[Object.keys(alignMap).find(key => match.startsWith(key) && match.endsWith(key))] || 'left';
-                }
-                return `<${tag} style="border: 1px solid black; text-align: ${align};">${cell}</${tag}>`;
-            }).join('');
-
-            // Wrap row HTML in <tr> tags
-            html += `<tr>${rowHtml}</tr>`;
+    // Process each row
+    for (let i = 0; i < rows.length; i++) {
+        if (i === 1) {
+            // Skip the second row (dashes)
+            continue;
         }
-    });
+        const cells = rows[i].split('|').slice(1, -1); // Extract cells, excluding the first and last empty elements
+        const rowHtml = cells.map(cell => `<td style="border: 1px solid black; padding: 8px; text-align: left;">${cell.trim()}</td>`).join('');
+        htmlTable += `<tr style="border: 1px solid black;">${rowHtml}</tr>`;
+    }
 
-    // Close the HTML table
-    html += '</table>';
+    // Close the table
+    htmlTable += '</table>';
 
-    return html;
+    return htmlTable;
 }
+
