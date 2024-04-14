@@ -13,6 +13,7 @@ markdownDiv.innerHTML = renderMarkdown(markdownText);          // Render the Mar
 
 //Like the render markdown function, write a function that can convert Markdown tables to HTML tables
 
+
 function renderMarkdownTable(markdown) {  // Function to convert Markdown tables to HTML tables
     markdown = markdown.replace(/\|(.*?)\|/g, '<td>$1</td>'); // Replace table cells (e.g., |Cell|) with <td>Cell</td>
     markdown = markdown.replace(/\n(.*?)\n/g, '<tr>$1</tr>'); // Replace table rows (e.g., \nRow\n) with <tr>Row</tr>
