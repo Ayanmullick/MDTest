@@ -18,13 +18,13 @@
 
 <script src="script.js">    </script>
 <!-- Fetch the markdown file and render it as HTML table using the renderMarkdownTable function-->
-
         <script>
             fetch("https://raw.githubusercontent.com/Ayanmullick/AzIaaS/main/3TierApp/VMs.md")
             .then(response => response.text())
             .then(text => {
-                document.getElementById('content').innerHTML = renderMarkdownTable.parse(text)
+                document.getElementById('content').innerHTML = renderMarkdownTable(text)
             })
+
         </script>
 
     </body>
