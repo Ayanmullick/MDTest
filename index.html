@@ -5,24 +5,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Test</title>
-        <!-- This should import and display the contents of VMs.md file-->
+
 
 
     </head><body>
 
         <h1>Test</h1>
         <div id="content"></div>
-
+<!--
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+-->
 
 
-        <!--Error: Uncaught (in promise) TypeError: marked is not a function-->
+<!-- Fetch the markdown file and render it as HTML table using the renderMarkdownTable function-->
 
         <script>
             fetch("https://raw.githubusercontent.com/Ayanmullick/AzIaaS/main/3TierApp/VMs.md")
             .then(response => response.text())
             .then(text => {
-                document.getElementById('content').innerHTML = marked.parse(text)
+                document.getElementById('content').innerHTML = renderMarkdownTable.parse(text)
             })
         </script>
 
